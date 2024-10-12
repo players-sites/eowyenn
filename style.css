@@ -1,0 +1,149 @@
+h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+.page-title {
+  width: 35%; /* Set a width for the container */
+  margin: 0 auto; /* Center the container horizontally */
+  display: flex; /* Enable flexbox */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  text-align: center; /* Center text within the items */
+}
+
+/* Styles for the modal */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.8); /* Background color */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fff; /* White background */
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888; /* Border */
+  width: 80%; /* Width */
+  max-width: 500px; /* Max width */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow */
+}
+
+/* Close button */
+.close-button {
+  color: #aaa; /* Gray color */
+  float: right; /* Align right */
+  font-size: 28px; /* Font size */
+  font-weight: bold; /* Bold */
+}
+
+/* Hover effect on close button */
+.close-button:hover,
+.close-button:focus {
+  color: black; /* Change color on hover */
+  text-decoration: none; /* Remove underline */
+  cursor: pointer; /* Pointer cursor */
+}
+
+/* Form styling */
+.form-group {
+  margin-bottom: 15px; /* Space between form groups */
+}
+
+label {
+  display: block; /* Block label */
+  font-weight: bold; /* Bold label */
+  margin-bottom: 5px; /* Space below label */
+}
+
+input[type="text"],
+textarea {
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding */
+  border: 1px solid #ccc; /* Border */
+  border-radius: 4px; /* Rounded corners */
+  box-sizing: border-box; /* Box sizing */
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #800000; /* Focus border color */
+  outline: none; /* Remove outline */
+}
+
+/* Submit button */
+.submit-button {
+  background-color: #800000; /* Button background color */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px 15px; /* Padding */
+  cursor: pointer; /* Pointer cursor */
+  font-size: 16px; /* Font size */
+}
+
+.submit-button:hover {
+  background-color: #a00; /* Darker background on hover */
+}
+
+textarea {
+  width: 320px;
+  display: block;
+  margin: auto;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  padding: 0.4rem 1rem;
+  display: block;
+  margin: 0.5rem auto;
+}
+
+.btn-cont {
+  margin: auto;
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.code-block {
+  width: 340px;
+  text-align: justify;
+  margin: 1rem auto;
+}
+
+p {
+  width: 310px;
+  margin: auto;
+  text-align: center;
+}
+
+.buttons {
+  width: 340px;
+  display: flex;
+  margin: 0.5rem auto;
+}
+
+select {
+  display: block;
+  margin: auto;
+  padding: 0.5rem 0.8rem;
+}
+
+#get-html-button:active {
+  box-shadow: 1px 1px 1px 2px gray;
+}
+
+.htmlPreview {
+  position: absolute;
+  left: 24%;
+}
