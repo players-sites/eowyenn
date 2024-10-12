@@ -73,6 +73,54 @@ const updateBaseHTML = (currentChar) => {
     </center><br><br>`;
 };
 
+// Function to load characters from localStorage
+const loadChars = () => {
+  const charsJSON = localStorage.getItem("chars");
+  return charsJSON ? JSON.parse(charsJSON) : [];
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const populateSelect = () => {
+    const chars = loadChars(); // Load characters from localStorage
+    const selectChar = document.getElementById("selectChar");
+    selectChar.innerHTML = ""; // Clear existing options
+
+    chars.forEach((char) => {
+      const option = document.createElement("option");
+      option.classList.add("char-option");
+      option.textContent = char.name; // Set the displayed text to the char name
+
+      // Create the edit button with Font Awesome icon
+      const editButton = document.createElement("button");
+      const imgEdit = document.createElement("img");
+      imgEdit.src = "edit.png";
+      editButton.onclick = () => editChar(char.name); // Attach the edit function
+
+      // Create the delete button with Font Awesome icon
+      const deleteButton = document.createElement("button");
+      deleteButton.innerHTML = `<i class="fa fa-trash-alt"></i>`; // Font Awesome icon for deleting
+      deleteButton.onclick = () => deleteChar(char.name); // Attach the delete function
+
+      // Create a wrapper div for the buttons
+      const buttonWrapper = document.createElement("div");
+      buttonWrapper.appendChild(editButton); // Append the edit button
+      buttonWrapper.appendChild(deleteButton); // Append the delete button
+
+      // Append the button wrapper to the option
+      option.appendChild(buttonWrapper);
+
+      // Add the option to the select element
+      selectChar.appendChild(option);
+    });
+
+    // Add event listener for changes in the select element right after populating
+    selectChar.addEventListener("change", saveSelectedChar);
+  };
+
+  // Call populateSelect function when the page loads
+  populateSelect();
+});
+
 function getTextReady(char, color) {
   const text = document.getElementById("text").value;
 
@@ -96,17 +144,19 @@ function getTextReady(char, color) {
 
 const getHTMLReady = () => {
   const selectedChar = localStorage.getItem("selectedChar");
-  const currentChar = char;
+  const currentChar = getCharByName(selectedChar) ?? char;
+  console.log("selectedChar :>> ", selectedChar);
+  // const currentChar = selectedChar ?? char;
   console.log("currentChar :>> ", currentChar);
 
-  const completeHtml = updateBaseHTML(char);
+  const completeHtml = updateBaseHTML(currentChar);
+  console.log("completeHtml :>> ", completeHtml);
 
   const previewHtml = document.getElementById("preview-html");
   previewHtml.innerHTML = completeHtml;
 
   // Referência ao botão que foi clicado
   const button = document.getElementById("get-html-button");
-  console.log("button :>> ", button);
 
   navigator.clipboard
     .writeText(completeHtml)
@@ -151,29 +201,6 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
 
-// Function to load characters from localStorage
-const loadChars = () => {
-  const charsJSON = localStorage.getItem("chars");
-  return charsJSON ? JSON.parse(charsJSON) : [];
-};
-
-// Function to populate the select options
-const populateSelect = () => {
-  const chars = loadChars(); // Load characters from localStorage
-  const selectChar = document.getElementById("selectChar");
-  selectChar.innerHTML = ""; // Clear existing options
-
-  chars.forEach((char) => {
-    const option = document.createElement("option");
-    option.value = char.name; // Set the value to the char name
-    option.textContent = char.name; // Set the displayed text to the char name
-    selectChar.appendChild(option); // Add the option to the select element
-  });
-
-  // Add event listener for changes in the select element right after populating
-  selectChar.addEventListener("change", saveSelectedChar);
-};
-
 // Function to save the selected character to localStorage
 const saveSelectedChar = () => {
   const selectChar = document.getElementById("selectChar");
@@ -189,9 +216,6 @@ const getCharByName = (name) => {
   return chars.find((char) => char.name === name) || null; // Return the character or null if not found
 };
 
-// Call the function to populate options when the page loads
-document.addEventListener("DOMContentLoaded", populateSelect);
-
 // Save characters to localStorage
 const saveChars = (chars) => {
   localStorage.setItem("chars", JSON.stringify(chars));
@@ -202,6 +226,8 @@ const charForm = document.getElementById("charForm");
 charForm.addEventListener("submit", function (event) {
   event.preventDefault(); // Prevent page reload
 
+  console.log("color :>> ", document.getElementById("color").value);
+
   // Create the char object with the form data
   const char = {
     gif: document.getElementById("gif").value,
@@ -210,13 +236,71 @@ charForm.addEventListener("submit", function (event) {
     frase: document.getElementById("frase").value,
     charInfo: document.getElementById("charInfo").value,
     advantages: document.getElementById("advantages").value,
+    color: document.getElementById("color").value,
   };
+
+  console.log("char :>> ", char);
 
   const chars = loadChars();
   chars.push(char); // Add new character to the array
   saveChars(chars); // Save updated characters
+  populateSelect();
   closeModal();
 });
+
+// Add event listener for the form submission
+document.getElementById("charForm").addEventListener("submit", saveEditedChar);
+
+// Function to populate the form with character details for editing
+function editChar(charName) {
+  const chars = loadChars(); // Load characters from localStorage
+  const charToEdit = chars.find((char) => char.name === charName); // Find the character by name
+
+  if (charToEdit) {
+    // Populate form fields with character details
+    document.getElementById("gif").value = charToEdit.gif;
+    document.getElementById("name").value = charToEdit.name;
+    document.getElementById("song").value = charToEdit.song;
+    document.getElementById("frase").value = charToEdit.frase;
+    document.getElementById("charInfo").value = charToEdit.charInfo;
+    document.getElementById("advantages").value = charToEdit.advantages;
+    document.getElementById("color").value = charToEdit.color;
+
+    // Show the modal (you may need a function for this)
+    openModal();
+  }
+}
+
+// Function to save the character back to localStorage
+function saveEditedChar(event) {
+  event.preventDefault(); // Prevent the form from submitting normally
+  const chars = loadChars(); // Load existing characters
+  const charIndex = chars.findIndex(
+    (char) => char.name === document.getElementById("name").value
+  ); // Find index of the character to update
+
+  if (charIndex !== -1) {
+    // Update the character with new values
+    chars[charIndex] = {
+      gif: document.getElementById("gif").value,
+      name: document.getElementById("name").value,
+      song: document.getElementById("song").value,
+      frase: document.getElementById("frase").value,
+      charInfo: document.getElementById("charInfo").value,
+      advantages: document.getElementById("advantages").value,
+      color: document.getElementById("color").value,
+    };
+
+    // Save updated characters back to localStorage
+    localStorage.setItem("chars", JSON.stringify(chars));
+
+    // Optionally close the modal after saving
+    closeModal();
+
+    // Optionally repopulate your select options
+    populateSelect();
+  }
+}
 
 // Delete character
 const deleteChar = (index) => {

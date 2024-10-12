@@ -139,11 +139,28 @@ select {
   padding: 0.5rem 0.8rem;
 }
 
+.t-social .fab,
+.fas {
+  font-size: 35px;
+  margin: 0 8px;
+  color: rgb(73, 16, 16);
+}
+
+.char-option i {
+  font-size: 16px; /* Adjust size as needed */
+  margin-left: 10px; /* Space between icons */
+  transition: color 0.3s;
+}
+
+.char-option i:hover {
+  color: #007bff; /* Change color on hover */
+}
+
 #get-html-button:active {
   box-shadow: 1px 1px 1px 2px gray;
 }
 
 .htmlPreview {
   position: absolute;
-  left: 24%;
+  left: 30%;
 }
