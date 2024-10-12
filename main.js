@@ -79,47 +79,37 @@ const loadChars = () => {
   return charsJSON ? JSON.parse(charsJSON) : [];
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  const populateSelect = () => {
-    const chars = loadChars(); // Load characters from localStorage
-    const selectChar = document.getElementById("selectChar");
-    selectChar.innerHTML = ""; // Clear existing options
+const populateSelect = () => {
+  const chars = loadChars(); // Load characters from localStorage
+  const selectChar = document.getElementById("selectChar");
+  selectChar.innerHTML = ""; // Clear existing options
 
+  console.log("chars.length :>> ", chars.length);
+
+  if (chars.length > 0) {
     chars.forEach((char) => {
       const option = document.createElement("option");
       option.classList.add("char-option");
       option.textContent = char.name; // Set the displayed text to the char name
 
-      // Create the edit button with Font Awesome icon
-      const editButton = document.createElement("button");
-      const imgEdit = document.createElement("img");
-      imgEdit.src = "edit.png";
-      editButton.onclick = () => editChar(char.name); // Attach the edit function
-
-      // Create the delete button with Font Awesome icon
-      const deleteButton = document.createElement("button");
-      deleteButton.innerHTML = `<i class="fa fa-trash-alt"></i>`; // Font Awesome icon for deleting
-      deleteButton.onclick = () => deleteChar(char.name); // Attach the delete function
-
-      // Create a wrapper div for the buttons
-      const buttonWrapper = document.createElement("div");
-      buttonWrapper.appendChild(editButton); // Append the edit button
-      buttonWrapper.appendChild(deleteButton); // Append the delete button
-
-      // Append the button wrapper to the option
-      option.appendChild(buttonWrapper);
-
       // Add the option to the select element
       selectChar.appendChild(option);
     });
+  } else addFirstChar();
 
-    // Add event listener for changes in the select element right after populating
-    selectChar.addEventListener("change", saveSelectedChar);
-  };
+  // Add event listener for changes in the select element right after populating
+  selectChar.addEventListener("change", saveSelectedChar);
+};
 
-  // Call populateSelect function when the page loads
+document.addEventListener("DOMContentLoaded", populateSelect);
+
+function addFirstChar() {
+  console.log("char :>> ", char);
+  const chars = loadChars();
+  chars.push(char); // Add new character to the array
+  saveChars(chars); // Save updated characters
   populateSelect();
-});
+}
 
 function getTextReady(char, color) {
   const text = document.getElementById("text").value;

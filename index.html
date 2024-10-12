@@ -14,10 +14,8 @@
   <body>
     <div class="page-title">
       <h1>HTML CHARGER</h1>
-      <button onclick="openModal()">+</button>
+      <button class="addChar" onclick="openModal()">+</button>
     </div>
-
-    <i class="fas fa-trash-alt"></i>
 
     <!-- Modal for Adding Character Properties -->
     <div id="modal" class="modal">
@@ -78,22 +76,37 @@
       <!-- Coloque o texto do post aqui, as falas ficarão negritadas e da cor
       escolhida se escritas entre — travessões —. -->
     </p>
-    <textarea id="text" name="post" cols="30" rows="10"></textarea>
+    <textarea
+      class="main-textarea"
+      id="text"
+      name="post"
+      cols="100"
+      rows="15"
+    ></textarea>
 
-    <p>Escolha o char</p>
-    <select name="select" id="selectChar"></select>
+    <div id="charContainer">
+      <p>Escolha o char</p>
+      <div class="edit-delete-buttons">
+        <button id="editButton">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button id="deleteButton">
+          <i class="fa fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+    <div id="selectContainer">
+      <select name="select" id="selectChar"></select>
+    </div>
 
     <div class="buttons">
       <button id="get-html-button" onclick="getHTMLReady()" type="submit">
         PEGAR HTML PRONTO
       </button>
-      <!-- <button id="copyText" class="copyTextBtn" onclick="copyToClipboard()">
-        <span class="material-symbols-outlined"> content_copy </span>
-      </button> -->
     </div>
-    <div class="htmlPreview">
-      <p id="preview-html"></p>
-    </div>
+
+    <div class="htmlPreview" id="preview-html"></div>
+
     <div class="code-block">
       <code id="postText"></code>
     </div>

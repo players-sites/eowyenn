@@ -1,21 +1,26 @@
-h1 {
-  font-size: 40px;
+.page-title {
+  display: flex;
+  flex-wrap: wrap;
   text-align: center;
+  margin: 0px auto;
+  width: 400px;
 }
 
-.page-title {
-  width: 35%; /* Set a width for the container */
-  margin: 0 auto; /* Center the container horizontally */
-  display: flex; /* Enable flexbox */
-  justify-content: center; /* Center items horizontally */
-  align-items: center; /* Center items vertically */
-  text-align: center; /* Center text within the items */
+.addChar {
+  margin-top: 20px;
+  height: 40px;
+}
+
+.page-title h1 {
+  margin-left: 25px;
+  margin-right: 10px; /* Space between the title and button */
 }
 
 /* Styles for the modal */
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
+  align-items: center;
   z-index: 1000; /* Sit on top */
   left: 0;
   top: 0;
@@ -23,6 +28,9 @@ h1 {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgba(0, 0, 0, 0.8); /* Background color */
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 
 /* Modal content */
@@ -66,7 +74,7 @@ label {
 
 input[type="text"],
 textarea {
-  width: 100%; /* Full width */
+  width: auto; /* Set width to 720 pixels */
   padding: 10px; /* Padding */
   border: 1px solid #ccc; /* Border */
   border-radius: 4px; /* Rounded corners */
@@ -88,6 +96,7 @@ textarea:focus {
   padding: 10px 15px; /* Padding */
   cursor: pointer; /* Pointer cursor */
   font-size: 16px; /* Font size */
+  margin: auto;
 }
 
 .submit-button:hover {
@@ -96,6 +105,10 @@ textarea:focus {
 
 textarea {
   width: 320px;
+}
+
+.main-textarea {
+  width: 720px;
   display: block;
   margin: auto;
   margin-bottom: 0.5rem;
@@ -128,15 +141,103 @@ p {
 }
 
 .buttons {
-  width: 340px;
-  display: flex;
-  margin: 0.5rem auto;
+  margin-top: 10px;
+  text-align: center; /* Centers the button horizontally */
 }
 
-select {
-  display: block;
+#get-html-button {
+  padding: 10px 2px; /* Adds padding for a bigger button look */
+  margin-left: -1px;
+  display: inline-block; /* Ensures the button behaves as an inline element for centering */
+  width: 12%;
+}
+
+#charContainer {
   margin: auto;
-  padding: 0.5rem 0.8rem;
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center; /* Aligns the items vertically */
+  margin-top: 10px;
+  width: 12%;
+}
+
+.edit-delete-buttons {
+  display: flex;
+  margin-left: 10px; /* Adds some spacing between the paragraph and buttons */
+}
+
+button {
+  cursor: pointer;
+  margin-left: 5px; /* Adds space between the buttons */
+}
+
+#selectContainer {
+  display: flex;
+  justify-content: center; /* Centers the select element horizontally */
+  margin-top: 10px;
+}
+
+#selectChar {
+  width: 12%; /* Adjust width as needed */
+  height: 30px;
+}
+
+@media screen and (max-width: 1920px) {
+  #get-html-button {
+    padding: 10px 2px; /* Adds padding for a bigger button look */
+    margin-left: -1px;
+    display: inline-block; /* Ensures the button behaves as an inline element for centering */
+    width: 20%;
+  }
+
+  #charContainer {
+    margin: auto;
+    display: flex;
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Aligns the items vertically */
+    margin-top: 10px;
+    width: 20%;
+  }
+
+  #selectChar {
+    width: 20%; /* Adjust width as needed */
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  #get-html-button {
+    padding: 10px 2px; /* Adds padding for a bigger button look */
+    margin-left: -1px;
+    display: inline-block; /* Ensures the button behaves as an inline element for centering */
+    width: 70%;
+  }
+
+  #charContainer {
+    margin: auto;
+    display: flex;
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Aligns the items vertically */
+    margin-top: 10px;
+    width: 70%;
+  }
+
+  #selectChar {
+    width: 70%; /* Adjust width as needed */
+    height: 30px;
+  }
+
+  .htmlPreview {
+    display: none;
+    visibility: hidden;
+  }
+
+  textarea #text {
+    width: 360px;
+    display: block;
+    margin: auto;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .t-social .fab,
@@ -160,7 +261,17 @@ select {
   box-shadow: 1px 1px 1px 2px gray;
 }
 
+/* <div class="htmlPreview">
+      <p id="preview-html"></p>
+    </div> */
+
 .htmlPreview {
-  position: absolute;
-  left: 30%;
+  position: relative; /* Set position to relative */
+  display: flex; /* Enable flexbox for centering */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  text-align: center; /* Center text inside */
+
+  text-align: center; /* Centers the text inside the div */
+  width: 100%; /* Optional: Sets the width of the div */
 }
